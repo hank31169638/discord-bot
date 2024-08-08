@@ -43,12 +43,16 @@ def is_member(name):
 
 def add_newMember(newMember):
     members = newMember.split(',')
-    with get_connection() as conn:
-        with conn.cursor() as cur:
-            for member in members:
-                cur.execute(sql.SQL("INSERT INTO members (name) VALUES (%s) ON CONFLICT (name) DO NOTHING"),
-                            [member, 0])
-            conn.commit()
+    print(members)
+    try:
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                for member in members:
+                    cur.execute(sql.SQL("INSERT INTO members (name) VALUES (%s) ON CONFLICT (name) DO NOTHING"),
+                                [member])
+                conn.commit()
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 
 def get_all_members():
