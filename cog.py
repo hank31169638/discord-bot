@@ -4,13 +4,12 @@ from discord.ext import commands
 
 
 class Cog(commands.Cog):
-
     def __init__(self, bot):
         self.bot = bot
         self.welcome_name = '歡迎大廳'
-
+        print("Program start")
     """
-    啟動時添加Slash指令到dc bot
+    When the program is executed, slashes command will be added to discord
     """
 
     @commands.Cog.listener()
@@ -19,7 +18,7 @@ class Cog(commands.Cog):
         await self.bot.tree.sync()
 
     """
-    新成員加入
+    new member join
     """
 
     @commands.Cog.listener()
@@ -44,7 +43,7 @@ class Cog(commands.Cog):
             await member.add_roles(guest_role)
 
     """
-    成員退出
+    member exit
     """
 
     @commands.Cog.listener()
@@ -64,11 +63,11 @@ class Cog(commands.Cog):
             print("未找到指定的离开消息频道")
 
     """
-    verify 認證指令撰寫
-    -- 驗證成功
-    1.獲得資管新生權限
-    2.賦予權限及更改暱稱
-    3.將訪客權限收回
+    verify command instruction
+    -- if verification is successful:
+    1. Grant the member access.
+    2. Force the member to change their nickname.
+    3. Revoke the member's guest privileges.
     """
 
     @discord.app_commands.command(description="認證指令")
@@ -90,7 +89,7 @@ class Cog(commands.Cog):
                 "驗證失敗，你不在新生名單上，請檢查是否有錯別字。若有疑慮請私訊會長", ephemeral=True)
 
     """
-    添加新成員
+    add new member
     """
 
     @discord.app_commands.command(description="增加新成員指令")
@@ -103,7 +102,7 @@ class Cog(commands.Cog):
             await interaction.response.send_message("新增成功!", ephemeral=True)
 
     """
-    獲取資料庫所有成員
+    get all the member data from database
     """
 
     @discord.app_commands.command(description="獲取資料庫所有成員")
@@ -119,6 +118,5 @@ class Cog(commands.Cog):
         await interaction.response.send_message("清除成功!", ephemeral=True)
 
 
-# 設置函數以將 cog 添加到 bot
 async def setup(bot):
     await bot.add_cog(Cog(bot))

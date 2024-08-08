@@ -2,9 +2,8 @@ import os
 import psycopg2
 from psycopg2 import sql
 
-# 确保从环境变量中获取数据库连接信息
+# Internal Database URL
 DATABASE_URL = os.getenv('DATABASE_URL')
-
 
 def create_table():
     with psycopg2.connect(DATABASE_URL) as conn:
@@ -17,17 +16,14 @@ def create_table():
             """)
             conn.commit()
 
-
-# 调用创建表的函数
+# init table
 create_table()
-
 
 def get_connection():
     return psycopg2.connect(DATABASE_URL)
 
 
 def reset_database():
-    # 清空資料庫中的所有資料
     with get_connection() as conn:
         with conn.cursor() as cur:
             cur.execute("TRUNCATE TABLE members")
@@ -61,10 +57,11 @@ def get_all_members():
             cur.execute("SELECT name FROM members")
             return [row[0] for row in cur.fetchall()]
 
-def update_member_val(member):
+
+def delete_member(member):
     with get_connection() as conn:
         with conn.cursor() as cur:
-            cur.execute(sql.SQL("UPDATE members SET val = %s WHERE name = %s"), [1, member])
+            cur.execute(sql.SQL("DELETE FROM members WHERE name = %s"), [member])
             conn.commit()
 
 
