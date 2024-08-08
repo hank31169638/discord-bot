@@ -78,7 +78,7 @@ class Cog(commands.Cog):
         # 發送私密消息
         if database.is_member(name) and interaction.guild:
             await interaction.response.send_message("驗證成功！", ephemeral=True)
-            database.update_member_val(name)
+            database.delete_member(name)
             role = discord.utils.get(interaction.guild.roles, name="資管新生")
             if role:
                 await interaction.user.edit(nick=f'113成員-{name}')
@@ -99,7 +99,6 @@ class Cog(commands.Cog):
             await interaction.response.send_message("此名稱已經存在", ephemeral=True)
         else:
             database.add_newMember(name)
-            database.delete_member(name)
             await interaction.response.send_message("新增成功!", ephemeral=True)
 
     """
