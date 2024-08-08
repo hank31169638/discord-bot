@@ -17,4 +17,4 @@ ENV FLASK_APP=main.py
 EXPOSE 8000
 
 # 運行 Flask 應用
-CMD ["gunicorn", "--bind", "0.0.0.0:$PORT", "main:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:10000", "main:app"]
