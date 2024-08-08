@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 ENV FLASK_APP=main.py
 
 # 暴露端口
-EXPOSE 8000
+EXPOSE 443
 
 # 運行 Flask 應用
-CMD ["gunicorn", "--bind", "0.0.0.0:10000", "main:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:443", "main:app"]
