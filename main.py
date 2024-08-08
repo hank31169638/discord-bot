@@ -20,6 +20,7 @@ async def on_ready():
 async def main():
 
     Token = os.getenv("TOKEN",'')
+    await client.load_extension("cog")
     await client.start(Token)
 
 asyncio.run(main())
