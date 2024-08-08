@@ -99,6 +99,7 @@ class Cog(commands.Cog):
             await interaction.response.send_message("此名稱已經存在", ephemeral=True)
         else:
             database.add_newMember(name)
+            database.delete_member(name)
             await interaction.response.send_message("新增成功!", ephemeral=True)
 
     """
