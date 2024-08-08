@@ -51,6 +51,12 @@ def add_newMember(newMember):
             conn.commit()
 
 
+def get_all_members():
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("SELECT name FROM members")
+            return [row[0] for row in cur.fetchall()]
+
 def update_member_val(member):
     with get_connection() as conn:
         with conn.cursor() as cur:
